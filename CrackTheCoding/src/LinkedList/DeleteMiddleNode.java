@@ -35,11 +35,12 @@ public class DeleteMiddleNode {
     }
 
 	private void deleteNode(Node head2) {
-		Node temp = head2.next;
-		System.out.println ("this is to print "+head2.data);
-		head2.data = temp.data;
-		head2.next = temp.next;
-		System.gc(); 
+//		if(head == null )
+//		Node temp = head2.next;
+//		System.out.println ("this is to print "+head2.data);
+//		head2.data = temp.data;
+//		head2.next = temp.next;
+//		System.gc(); 
 		
 	}
 

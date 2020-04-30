@@ -1,6 +1,11 @@
 package ArrayAndString;
 
 public class RotateMatrix {
+	/*
+	 * Requirements 
+	 * 1. clockwise / anti clockwise 
+	 * 2. 
+	 */
 	
 	public static void main(String args[]) {
 		
@@ -55,11 +60,15 @@ public class RotateMatrix {
 	}
 
 	private static void displayMatrix(int n, int[][] matrix) {
+		System.out.println();
+		System.out.println("new matrix ::");
+		
 		for(int i=0; i<n; i++) {
 			for(int j=0; j<n; j++) {
 				System.out.print(matrix[i][j] +" ");
 			}
 			System.out.println();
+			
 		}
 		
 	}
