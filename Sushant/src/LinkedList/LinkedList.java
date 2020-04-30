@@ -195,6 +195,10 @@ public class LinkedList<T> {
 		result.setValue(sum % 10);
 		return sum / 10;
 	}
+	
+	/* Add two LinkList In Iterative with uneven size of list. 
+	 * 
+	 */
 
 }
 

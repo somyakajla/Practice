@@ -1,8 +1,12 @@
 package Array;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
 public class TestArray {
 	
@@ -87,7 +91,28 @@ public class TestArray {
 	 * 
 	 */
 	public static void SpecialSortingArray(int[] arr) {
+		for (int i = 1; i < arr.length; i++) {
+			if (i % 2 == 0) 
+				if (arr[i] < arr[i-1]) {
+					int temp = arr[i];
+					arr[i] = arr[i - 1];
+					arr[i - 1] = temp;
+				}
+			if (i % 2 == 1) 
+				if (arr[i] > arr[i-1]) {
+					int temp = arr[i];
+					arr[i] = arr[i - 1];
+					arr[i - 1] = temp;
+				}
+		}
+	}
+	
+	/*
+	 * Find the element in Sorted array that is rotated many times
+	 */
+	public static int FindRotatedSortedArray(int[] nums, int value) {
 		
+		return 0;
 	}
 	
 	/*
@@ -116,7 +141,7 @@ public class TestArray {
 		int l = 0;
 		int h = arr.length - 1;
 		
-		while (l < h) {
+		while (l <= h) {
 			int piv = FindPivot(arr, l, h);
 			if (piv + 1 == k)
 				return arr[piv];
@@ -150,12 +175,40 @@ public class TestArray {
 		
 		return wall;
 	}
+	
+	
+	/*
+	 * Given k sorted arrays of variable size, merge them and print the sorted output.
+	*/
+	private static List<Integer> ExternalSorting(List<List<Integer>> arrayList) {
+		Queue<SortingNode> pq = new PriorityQueue<SortingNode>(arrayList.size());
+		List<Integer> result = new ArrayList<Integer>();
+		
+		// Initialize Priority Queue by getting one element each from each arrayList
+		for (int i=0; i<arrayList.size(); i++) {
+			if (arrayList.get(i).size() > 0) 
+				pq.add(new SortingNode(arrayList.get(i).get(0), i, 0));
+		}
+
+		int firstIndex = 0;
+		int secondIndex = 0;
+		while(!pq.isEmpty()) {
+			SortingNode min = pq.poll();
+			result.add(min.element);
+			firstIndex = min.firstIndex;
+			secondIndex = min.secondIndex;
+			if(secondIndex < arrayList.get(firstIndex).size()-1)
+				pq.add(new SortingNode(arrayList.get(firstIndex).get(secondIndex + 1), firstIndex, secondIndex + 1));
+		}
+		
+		return result;
+	}
 
 	public static void main(String[] args) throws Exception {
 		int [] arr = new int[] {5, 2, 10, 6, 8, 1, 3, 9, 7};
 		
 		Arrays.sort(arr);
-		System.out.println(Arrays.toString(arr));
+		//System.out.println(Arrays.toString(arr));
 		assert BinarySearchIterative(arr, 8) == true;
 		assert BinarySearchIterative(arr, 11) == false;
 		assert BinarySearchRecursive(arr, 0, arr.length-1, 8) == true;
@@ -168,6 +221,32 @@ public class TestArray {
 		assert KthSmallestIterative(arr, 3) == 3;   		// Find smallest 
 		assert KthSmallestIterative(arr, 7) == 8;   		// Find smallest 
 		assert KthSmallestIterative(arr, arr.length - 4 + 1) == 7;   // Find 4th largest 
+		assert KthSmallestIterative(new int[]{1, 2}, 2) == 2;
+		
+		
+		List<List<Integer>> data = new ArrayList<>();
+		data.add(Arrays.asList(3, 5, 9));
+		data.add(Arrays.asList(4, 6, 10));
+		data.add(Arrays.asList(2, 7));
+		data.add(new ArrayList<Integer>());
+		assert ExternalSorting(data).equals(Arrays.asList(2, 3, 4, 5, 6, 7, 9, 10));
 	}
+}
 
+class SortingNode implements Comparable {
+	public int element;
+	public int firstIndex;
+	public int secondIndex;
+	
+	public SortingNode(int item, int x, int y) {
+		this.element = item;
+		this.firstIndex = x;
+		this.secondIndex = y;
+	}
+	
+	@Override
+	public int compareTo(Object arg0) {
+		SortingNode st = (SortingNode) arg0;
+		return this.element - st.element;
+	}
 }
