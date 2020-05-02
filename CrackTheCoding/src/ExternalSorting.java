@@ -43,6 +43,7 @@ public class ExternalSorting {
 	private static ArrayList<Integer> mergeSortedArray(ArrayList<ArrayList<Integer>> list) {
 		ArrayList<Integer> result = new ArrayList<>();
 		//SortValue obj = new SortValue();
+		// pas this object in pq
 		PriorityQueue<IdexObject> pq = new PriorityQueue<>();
 
 		for (int i = 0; i < list.size(); i++) {
