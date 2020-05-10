@@ -17,6 +17,8 @@ public class BinaryTreeNode <T> {
 	// setter and getter to access private attributes of class
 	public void setData(T value) {
 		this.data = value;
+		this.left = null;
+		this.right = null;
 	}
 	
 	public T getData() {
